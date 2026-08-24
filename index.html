@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>婚禮邀請函 | W & Y Wedding Invitation</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Noto+Serif+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#f3f6f3',
+                            100: '#e3eae3',
+                            200: '#c5d5c5',
+                            300: '#9cb79b',
+                            400: '#769774',
+                            500: '#5a7a58',
+                            600: '#466244',
+                            700: '#384f36',
+                            800: '#2d3f2c',
+                            900: '#233222',
+                        },
+                        blush: {
+                            50: '#fdf7f7',
+                            100: '#faecec',
+                            200: '#f4d5d6',
+                            300: '#ebafb1',
+                            400: '#df8386',
+                            500: '#ce5c61',
+                            600: '#b74449',
+                        },
+                        champagne: {
+                            50: '#fdfbf7',
+                            100: '#f9f3e8',
+                            200: '#f2e5cf',
+                            300: '#e5d1ae',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', '"Cormorant Garamond"', 'serif'],
+                        english: ['"Cormorant Garamond"', 'serif'],
+                        cursive: ['"Great Vibes"', 'cursive'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 田園質感底紋與自然柔色背景 */
+        body {
+            background-color: #f7f4ef;
+            background-image: 
+                radial-gradient(rgba(118, 151, 116, 0.12) 1px, transparent 0.75px), 
+                radial-gradient(rgba(223, 131, 134, 0.12) 1px, #f7f4ef 0.75px);
+            background-size: 28px 28px;
+            background-position: 0 0, 14px 14px;
+            color: #424942;
+            font-family: 'Noto Serif TC', serif;
+            overflow-x: hidden;
+        }
+
+        /* 自然花卉與綠葉圖騰背景疊加 */
+        .floral-bg-overlay {
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 10 C 25 20, 15 25, 10 30 C 20 35, 25 45, 30 50 C 35 45, 45 35, 50 30 C 45 25, 35 20, 30 10 Z' fill='%23df8386' fill-opacity='0.035'/%3E%3Cpath d='M80 60 C 75 70, 65 75, 60 80 C 70 85, 75 95, 80 100 C 85 95, 95 85, 100 80 C 95 75, 85 70, 80 60 Z' fill='%23769774' fill-opacity='0.045'/%3E%3Ccircle cx='30' cy='30' r='3' fill='%23e5d1ae' fill-opacity='0.15'/%3E%3C/svg%3E");
+        }
+
+        /* 浪漫玻璃質感卡片 */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.91);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(227, 234, 227, 0.85);
+            box-shadow: 0 12px 35px -8px rgba(90, 122, 88, 0.08);
+        }
+
+        /* 淡粉與鼠尾草綠雙色邊框線 */
+        .romantic-border {
+            border-image: linear-gradient(135deg, #f4d5d6 0%, #c5d5c5 50%, #f2e5cf 100%) 1;
+        }
+
+        /* 花瓣飄落動畫效果 */
+        .petal {
+            position: fixed;
+            background-color: #faecec;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.7;
+            pointer-events: none;
+            z-index: 10;
+            animation: animatePetal 10s linear infinite;
+        }
+        @keyframes animatePetal {
+            0% {
+                top: -10%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                top: 100%;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 隱藏滾動條但可滾動 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="floral-bg-overlay min-h-screen text-stone-700 relative pb-16 selection:bg-blush-200 selection:text-sage-900">
+
+    <!-- 飄落花瓣動畫容器 -->
+    <div id="petalContainer" aria-hidden="true"></div>
+
+    <!-- 頂部導覽列 -->
+    <nav class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-sage-100 shadow-sm transition-all duration-300">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="#" class="font-english text-2xl text-sage-800 font-semibold tracking-widest flex items-center gap-2">
+                <i class="fa-solid fa-seedling text-sage-500 text-lg"></i> <span id="navBrand">W & Y</span>
+            </a>
+            <div class="hidden md:flex space-x-6 text-sm font-medium text-stone-600">    
+                <a href="#details" class="hover:text-blush-500 transition-colors">宴客資訊</a>
+                <a href="#gallery" class="hover:text-blush-500 transition-colors">婚紗藝廊</a>
+                <a href="#rsvp" class="hover:text-blush-500 transition-colors">出席回覆</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首頁 Hero Banner -->
+    <header class="relative max-w-4xl mx-auto px-4 pt-8 pb-12 text-center">
+        <div class="glass-card rounded-3xl p-8 sm:p-14 relative overflow-hidden border border-blush-200/80 shadow-xl">
+            <!-- 裝飾花卉 SVG 角飾 -->
+            <div class="absolute -top-6 -left-6 text-sage-400 opacity-40 pointer-events-none transform -rotate-12">
+                <svg width="140" height="140" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50,10 Q60,30 80,30 Q60,50 70,80 Q50,60 30,80 Q40,50 20,30 Q40,30 50,10 Z" />
+                </svg>
+            </div>
+            <div class="absolute -bottom-6 -right-6 text-blush-300 opacity-50 pointer-events-none transform rotate-180">
+                <svg width="140" height="140" viewBox="0 0 100 100" fill="currentColor">
+                    <path d="M50,10 Q60,30 80,30 Q60,50 70,80 Q50,60 30,80 Q40,50 20,30 Q40,30 50,10 Z" />
+                </svg>
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-5 rounded-full bg-blush-50/90 text-blush-500 text-xs font-medium tracking-widest uppercase border border-blush-200">
+                <i class="fa-solid fa-heart text-[10px]"></i> Wedding Invitation <i class="fa-solid fa-heart text-[10px]"></i>
+            </div>
+            
+            <p class="font-cursive text-4xl sm:text-5xl text-blush-400 mb-2">We Are Getting Married</p>
+            
+            <h1 id="heroNames" class="font-english text-3xl sm:text-5xl font-semibold text-sage-800 tracking-wider my-3">
+                -- & --
+            </h1>
+            
+            <p id="heroSubtext" class="text-sm sm:text-base text-stone-600 font-light tracking-widest mb-6">
+                
+            </p>
+
+            <div class="w-20 h-0.5 bg-gradient-to-r from-blush-200 via-sage-300 to-blush-200 mx-auto my-6 rounded-full"></div>
+
+            <p id="heroQuote" class="text-stone-600 font-serif text-base sm:text-lg mb-8 max-w-lg mx-auto leading-relaxed italic">
+                2026.12.06(日) 誠摯邀您一同蒞臨，見證我們的幸福時刻。
+            </p>
+
+            <!-- 婚禮日期倒數器 -->
+            <div class="bg-white/95 rounded-2xl p-5 shadow-inner border border-sage-100 max-w-lg mx-auto">
+                <div class="text-xs text-stone-400 uppercase tracking-widest mb-3 font-medium flex items-center justify-center gap-1.5">
+                    <i class="fa-regular fa-clock text-sage-500"></i> 距離婚禮還有
+                </div>
+                <div class="grid grid-cols-4 gap-2.5 text-center" id="countdown">
+                    <div class="bg-sage-50/80 rounded-xl p-2.5 border border-sage-100">
+                        <span id="days" class="block text-2xl sm:text-3xl font-english font-bold text-sage-700">00</span>
+                        <span class="text-[11px] text-stone-500">天</span>
+                    </div>
+                    <div class="bg-sage-50/80 rounded-xl p-2.5 border border-sage-100">
+                        <span id="hours" class="block text-2xl sm:text-3xl font-english font-bold text-sage-700">00</span>
+                        <span class="text-[11px] text-stone-500">時</span>
+                    </div>
+                    <div class="bg-sage-50/80 rounded-xl p-2.5 border border-sage-100">
+                        <span id="minutes" class="block text-2xl sm:text-3xl font-english font-bold text-sage-700">00</span>
+                        <span class="text-[11px] text-stone-500">分</span>
+                    </div>
+                    <div class="bg-sage-50/80 rounded-xl p-2.5 border border-sage-100">
+                        <span id="seconds" class="block text-2xl sm:text-3xl font-english font-bold text-sage-700">00</span>
+                        <span class="text-[11px] text-stone-500">秒</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- 婚禮時間地點 Section -->
+    <section id="details" class="max-w-5xl mx-auto px-4 py-8">
+        <div class="glass-card rounded-3xl p-6 sm:p-10 border border-blush-100">
+            <div class="text-center mb-8">
+                <span class="text-xs text-blush-500 font-semibold tracking-widest uppercase">Wedding Info</span>
+                <h2 class="text-2xl sm:text-3xl font-semibold text-stone-800 mt-1">宴客資訊</h2>
+                <div class="w-12 h-0.5 bg-sage-400 mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 第一欄：時間與行程 -->
+                <div class="p-6 rounded-2xl bg-white/95 border border-stone-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 text-sage-700 font-semibold mb-3">
+                            <i class="fa-regular fa-calendar-check text-xl text-sage-600"></i>
+                            <span class="text-lg">日期 & 時間</span>
+                        </div>
+                        <p id="weddingDateDisplay" class="text-xl font-medium text-stone-800 mb-1">2026年12月6日（星期日）</p>
+                        <p id="weddingTimeDisplay" class="text-sm text-stone-500 mb-4">入席時間</p>
+
+                        <div class="border-t border-dashed border-stone-200 pt-3">
+                            <span class="text-xs font-semibold text-sage-700 block mb-2"><i class="fa-solid fa-list-ul mr-1"></i> 活動流程安排</span>
+                            <ul id="weddingAgenda" class="text-xs text-stone-600 space-y-2">
+                                <li class="flex items-center gap-2"><i class="fa-regular fa-clock text-sage-500"></i> 11:45 AM 迎賓雞尾酒</li>
+                                <li class="flex items-center gap-2"><i class="fa-solid fa-heart text-blush-400"></i> 12:00 PM 準時開席</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button onclick="addToCalendar()" class="mt-6 w-full py-2.5 rounded-xl bg-sage-50 text-sage-700 text-sm font-medium border border-sage-200 hover:bg-sage-600 hover:text-white transition-all text-center flex justify-center items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-calendar-plus"></i> 加入 Google 行事曆
+                    </button>
+                </div>
+
+                <!-- 第二欄：地點 -->
+                <div class="p-6 rounded-2xl bg-white/95 border border-stone-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 text-sage-700 font-semibold mb-3">
+                            <i class="fa-solid fa-location-dot text-xl text-blush-400"></i>
+                            <span class="text-lg">婚宴場地</span>
+                        </div>
+                        <p id="venueNameDisplay" class="text-xl font-medium text-stone-800 mb-1">台北新板希爾頓飯店</p>
+                        <p id="venueHallDisplay" class="text-sm text-blush-500 font-medium mb-3">1F 吉祥廳BCD</p>
+                        <p id="venueAddressDisplay" class="text-xs text-stone-600 leading-relaxed">
+                            <i class="fa-solid fa-map-pin text-blush-400 mr-1"></i> 地址：新北市板橋區民權路88號
+                        </p>
+                    </div>
+                    <a id="googleMapBtn" href="#" target="_blank" class="mt-6 w-full py-2.5 rounded-xl bg-blush-50 text-blush-600 text-sm font-medium border border-blush-200 hover:bg-blush-500 hover:text-white transition-all text-center flex justify-center items-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-route"></i> Google 地圖導航
+                    </a>
+                </div>
+
+                <!-- 第三欄：交通指南 -->
+                <div class="p-6 rounded-2xl bg-white/95 border border-stone-100 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 text-sage-700 font-semibold mb-3">
+                            <i class="fa-solid fa-bus text-xl text-sage-600"></i>
+                            <span class="text-lg">交通指南</span>
+                        </div>
+                        <div class="space-y-3 text-xs text-stone-600">
+                            <div>
+                                <span class="font-semibold text-stone-800 block mb-0.5"><i class="fa-solid fa-car text-sage-500 mr-1"></i> 自行開車：</span>
+                                <p id="trafficCarSummary" class="leading-relaxed">飯店備有地下停車場，當日憑卡消磁免費停車。</p>
+                            </div>
+                            <div class="border-t border-dashed border-stone-200 pt-2">
+                                <span class="font-semibold text-stone-800 block mb-0.5"><i class="fa-solid fa-train text-blush-400 mr-1"></i> 捷運 / 台鐵：</span>
+                                <p id="trafficTransitSummary" class="leading-relaxed">捷運板橋站 2 號出口或板橋車站 步行約 5 分鐘。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- 婚紗藝廊 Gallery Section -->
+    <section id="gallery" class="max-w-4xl mx-auto px-4 py-8">
+        <div class="glass-card rounded-3xl p-6 sm:p-10 border border-blush-100">
+            <div class="text-center mb-8">
+                <span class="text-xs text-blush-500 font-semibold tracking-widest uppercase">Memories</span>
+                <h2 class="text-2xl sm:text-3xl font-semibold text-stone-800 mt-1">婚紗畫廊</h2>
+                <div class="w-12 h-0.5 bg-sage-400 mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4" id="galleryGrid">
+                <!-- 動態載入藝廊照片 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP 出席調查表單 Section -->
+    <section id="rsvp" class="max-w-4xl mx-auto px-4 py-8">
+        <div class="glass-card rounded-3xl p-6 sm:p-10 border border-sage-200">
+            <div class="text-center mb-8">
+                <span class="text-xs text-sage-600 font-semibold tracking-widest uppercase">RSVP</span>
+                <h2 class="text-2xl sm:text-3xl font-semibold text-stone-800 mt-1">出席調查</h2>
+                <p id="rsvpDeadlineText" class="text-xs text-stone-500 mt-1.5">請於指定日期前填寫，方便我們為您精心安排盛宴</p>
+                <div class="w-12 h-0.5 bg-blush-300 mx-auto mt-2 rounded-full"></div>
+            </div>
+
+            <!-- 內嵌 Google Form 出席調查表單 -->
+            <div class="w-full overflow-hidden rounded-2xl bg-white/70 shadow-inner border border-sage-100">
+                <iframe 
+                    src="https://forms.gle/NrHPSgU5AxBLryH17" 
+                    width="100%" 
+                    height="850" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    class="w-full min-h-[750px] border-0 rounded-2xl">
+                    載入中…
+                </iframe>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="https://forms.gle/NrHPSgU5AxBLryH17" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-sage-600 text-white text-xs font-medium hover:bg-sage-700 transition-all shadow-md">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> 在新分頁開啟 Google 出席表單
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox 相片放大檢視 Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4 cursor-pointer" onclick="closeLightbox()">
+        <img id="lightboxImg" class="max-w-full max-h-[90vh] rounded-2xl shadow-2xl">
+    </div>
+
+    <!-- 自訂 Toast 提示 UI (取代 alert) -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-stone-800/90 backdrop-blur-md text-white px-5 py-3 rounded-2xl shadow-xl z-50 text-sm hidden transition-all flex items-center gap-2.5">
+        <i class="fa-solid fa-circle-check text-sage-400"></i>
+        <span id="toastMsg">成功送出！</span>
+    </div>
+
+    <script>
+        /**
+         * 婚禮資訊設定區
+         */
+        const WEDDING_CONFIG = {
+            groomName: '陳威揚',
+            brideName: '陳映霖',
+            coupleInitial: 'Wei & Ying',
+            weddingDate: '2026-12-06', // YYYY-MM-DD
+            weddingTime: '11:30 AM',
+            weddingDateTimeIso: '2026-12-06T11:30:00',
+            rsvpDeadline: '2026 年 09 月 30 日',
+            venueName: '新板希爾頓飯店 ',
+            venueHall: '宴會廳1F 吉祥廳BCD',
+            venueAddress: '新北市板橋區民權路88號',
+            googleMapUrl: 'https://maps.app.goo.gl/jpqDofZh28vk74TB6?g_st=ic',
+            
+            // 交通指南
+            trafficCar: '飯店備有地下停車場，當日憑卡消磁免費停車。',
+            trafficTransit: '搭乘捷運板橋站 2 號出口 或 板橋車站 步行 5 分鐘抵達。',
+
+            // 婚紗相簿照片集
+            galleryImages: [
+                'https://duk.tw/NcZcwl.png?auto=format&fit=crop&q=80&w=600',
+                'https://duk.tw/ZuXKSo.png?auto=format&fit=crop&q=80&w=600',
+                'https://duk.tw/aBZb9C.png?auto=format&fit=crop&q=80&w=600',
+                'https://duk.tw/kKrSVn.png?auto=format&fit=crop&q=80&w=600',
+                'https://duk.tw/ZJLAxw.png?auto=format&fit=crop&q=80&w=600',
+                'https://duk.tw/pOyWXu.png?auto=format&fit=crop&q=80&w=600',
+                 'https://duk.tw/kiUaPa.png?auto=format&fit=crop&q=80&w=600',
+                  'https://duk.tw/PY8rub.png?auto=format&fit=crop&q=80&w=600',
+                   'https://duk.tw/f0NhMu.png?auto=format&fit=crop&q=80&w=600'
+            ]
+        };
+
+        // 頁面載入時初始化
+        window.onload = function() {
+            initWeddingDetails();
+            startCountdown();
+            initPetals();
+            renderGallery();
+        };
+
+        // 安全設置 DOM 文字與 HTML 的輔助函式，避免 null 屬性錯誤
+        function setElementText(id, text) {
+            const el = document.getElementById(id);
+            if (el && text !== undefined) {
+                el.innerText = text;
+            }
+        }
+
+        function setElementHtml(id, html) {
+            const el = document.getElementById(id);
+            if (el && html !== undefined) {
+                el.innerHTML = html;
+            }
+        }
+
+        // 渲染畫面上的內文資訊
+        function initWeddingDetails() {
+            setElementText('navBrand', WEDDING_CONFIG.coupleInitial);
+            setElementText('heroNames', `${WEDDING_CONFIG.groomName}  &  ${WEDDING_CONFIG.brideName}`);
+            
+            setElementText('weddingDateDisplay', `${WEDDING_CONFIG.weddingDate} (${getWeekday(WEDDING_CONFIG.weddingDate)})`);
+            setElementText('weddingTimeDisplay', `迎賓入席時間：${WEDDING_CONFIG.weddingTime}`);
+            
+            setElementText('venueNameDisplay', WEDDING_CONFIG.venueName);
+            setElementText('venueHallDisplay', WEDDING_CONFIG.venueHall);
+            setElementHtml('venueAddressDisplay', `<i class="fa-solid fa-map-pin text-blush-400 mr-1"></i> ${WEDDING_CONFIG.venueAddress}`);
+            
+            const mapBtn = document.getElementById('googleMapBtn');
+            if (mapBtn && WEDDING_CONFIG.googleMapUrl) {
+                mapBtn.href = WEDDING_CONFIG.googleMapUrl;
+            }
+
+            // 宴客資訊區塊之交通指南簡述
+            setElementText('trafficCarSummary', WEDDING_CONFIG.trafficCar);
+            setElementText('trafficTransitSummary', WEDDING_CONFIG.trafficTransit);
+            setElementText('trafficShuttleSummary', WEDDING_CONFIG.trafficShuttle);
+
+            // 交通指南獨立區塊 (如存在)
+            setElementText('trafficCar', WEDDING_CONFIG.trafficCar);
+            setElementText('trafficTransit', WEDDING_CONFIG.trafficTransit);
+            setElementText('trafficShuttle', WEDDING_CONFIG.trafficShuttle);
+            
+            setElementText('rsvpDeadlineText', `請於 ${WEDDING_CONFIG.rsvpDeadline} 前填寫，方便我們為您精心準備盛宴`);
+        }
+
+        // 倒數計時器
+        function startCountdown() {
+            const targetDate = new Date(WEDDING_CONFIG.weddingDateTimeIso).getTime();
+            
+            function update() {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    document.getElementById('days').innerText = String(days).padStart(2, '0');
+                    document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                    document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                    document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+                }
+            }
+            update();
+            setInterval(update, 1000);
+        }
+
+        // 花瓣飄落視覺效果
+        function initPetals() {
+            const container = document.getElementById('petalContainer');
+            for (let i = 0; i < 10; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 5 + 7) + 's';
+                petal.style.animationDelay = (Math.random() * 5) + 's';
+                petal.style.width = (Math.random() * 8 + 10) + 'px';
+                petal.style.height = (Math.random() * 8 + 12) + 'px';
+                container.appendChild(petal);
+            }
+        }
+
+        // 畫廊動態渲染
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            WEDDING_CONFIG.galleryImages.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'w-full h-40 sm:h-56 object-cover rounded-2xl shadow-sm cursor-pointer hover:opacity-90 hover:scale-[1.02] transition-all border border-stone-100';
+                img.onclick = () => openLightbox(src);
+                grid.appendChild(img);
+            });
+        }
+
+        // 輔助函式
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        function addToCalendar() {
+            showToast('已觸發行事曆活動安排！');
+        }
+
+        function getWeekday(dateStr) {
+            const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            return weekdays[new Date(dateStr).getDay()] || '';
+        }
+    </script>
+</body>
+</html>
