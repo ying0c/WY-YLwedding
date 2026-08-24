@@ -354,8 +354,8 @@
             brideName: '陳映霖',
             coupleInitial: 'Wei & Ying',
             weddingDate: '2026-12-06', // YYYY-MM-DD
-            weddingTime: '11:30 AM',
-            weddingDateTimeIso: '2026-12-06T11:30:00',
+            weddingTime: '11:45 AM',
+            weddingDateTimeIso: '2026-12-06T11:45:00',
             rsvpDeadline: '2026 年 09 月 30 日',
             venueName: '新板希爾頓飯店 ',
             venueHall: '宴會廳1F 吉祥廳BCD',
@@ -504,8 +504,44 @@
             }, 3000);
         }
 
+        /**
+         * 加入 Google 行事曆
+         * 使用 Google Calendar 建立活動 URL，不需要 API Key / OAuth。
+         */
         function addToCalendar() {
-            showToast('已觸發行事曆活動安排！');
+            const config = WEDDING_CONFIG;
+            const start = '20261206T114500';
+            const end = '20261206T143000';
+            const title = `${config.groomName} & ${config.brideName}｜婚禮午宴`;
+            const details = [
+                '💍 誠摯邀請您蒞臨，見證我們的幸福時刻！',
+                '',
+                '11:45 迎賓雞尾酒',
+                '12:00 準時開席',
+                '',
+                `場地：${config.venueName}`,
+                `廳別：${config.venueHall}`,
+                `地址：${config.venueAddress}`,
+                '',
+                '期待與您相見 ❤️'
+            ].join('\n');
+
+            const calendarUrl =
+                'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+                `&text=${encodeURIComponent(title)}` +
+                `&dates=${start}/${end}` +
+                `&details=${encodeURIComponent(details)}` +
+                `&location=${encodeURIComponent(config.venueAddress)}` +
+                '&ctz=Asia/Taipei';
+
+            const calendarWindow = window.open(calendarUrl, '_blank', 'noopener,noreferrer');
+
+            if (!calendarWindow) {
+                showToast('請允許此網站開啟新分頁，以加入 Google 行事曆。');
+                setTimeout(() => { window.location.href = calendarUrl; }, 800);
+            } else {
+                showToast('已開啟 Google 行事曆，請確認後按「儲存」❤️');
+            }
         }
 
         function getWeekday(dateStr) {
