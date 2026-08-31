@@ -354,15 +354,15 @@
             coupleInitial: 'Wei & Ying',
             weddingDate: '2026-12-06', // YYYY-MM-DD
             weddingTime: '11:30 AM',
-            weddingDateTimeIso: '2026-12-06T11:45:00',
-            rsvpDeadline: '2026 年 09 月 30 日',
+            weddingDateTimeIso: '2026-12-06T11:30:00',
+            rsvpDeadline: '2026 年 09 月 20 日',
             venueName: '新板希爾頓飯店 ',
             venueHall: '宴會廳1F 吉祥廳BCD',
             venueAddress: '新北市板橋區民權路88號',
             googleMapUrl: 'https://maps.app.goo.gl/jpqDofZh28vk74TB6?g_st=ic',
             
             // 交通指南
-            trafficCar: '飯店備有地下停車場，當日憑卡消磁免費停車。',
+            trafficCar: '飯店備有地下停車場(汽+機車)，當日憑卡消磁免費停車。',
             trafficTransit: '搭乘捷運板橋站 2 號出口 或 板橋車站 步行 5 分鐘抵達。',
 
             // 婚紗相簿照片集
@@ -410,7 +410,6 @@
             
             setElementText('weddingDateDisplay', `${WEDDING_CONFIG.weddingDate} (${getWeekday(WEDDING_CONFIG.weddingDate)})`);
             setElementText('weddingTimeDisplay', `迎賓入席時間：${WEDDING_CONFIG.weddingTime}`);
-            
             setElementText('venueNameDisplay', WEDDING_CONFIG.venueName);
             setElementText('venueHallDisplay', WEDDING_CONFIG.venueHall);
             setElementHtml('venueAddressDisplay', `<i class="fa-solid fa-map-pin text-blush-400 mr-1"></i> ${WEDDING_CONFIG.venueAddress}`);
@@ -459,7 +458,7 @@
         // 花瓣飄落視覺效果
         function initPetals() {
             const container = document.getElementById('petalContainer');
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 12; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'petal';
                 petal.style.left = Math.random() * 100 + 'vw';
@@ -509,7 +508,7 @@
          */
         function addToCalendar() {
             const config = WEDDING_CONFIG;
-            const start = '20261206T114500';
+            const start = '20261206T113000';
             const end = '20261206T143000';
             const title = `${config.groomName} & ${config.brideName}｜婚禮午宴`;
             const details = [
